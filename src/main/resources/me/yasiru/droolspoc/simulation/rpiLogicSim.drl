@@ -1,0 +1,16 @@
+package me.yasiru.droolspoc;
+dialect  "mvel"
+import me.yasiru.droolspoc.PieGate;
+
+rule "rpiAndGateHIGH"
+    when
+        p : PieGate(inputOne == PieGate.HIGH && inputTwo == PieGate.HIGH)
+    then
+        System.out.println("AND Gate output: HIGH");
+end
+rule "rpiAndGateLOW"
+    when
+        p1 : PieGate(inputOne == PieGate.LOW || inputTwo == PieGate.LOW)
+    then
+        System.out.println("AND Gate output: LOW");
+end

@@ -1,0 +1,26 @@
+package me.yasiru.droolspoc;
+dialect  "mvel"
+import me.yasiru.droolspoc.PieGate;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+/*
+ This rules file is meant to actually work on an Rpi
+ rpiAndGateHIGH & rpiAndGateLOW rules will behave as and AND gate setting the output of GPIO pin 01 based on
+ the states of GPIO pin 2 and 3 whose values are parsed wrapped in me.yasiru.droolspoc.PieGate instance.
+*/
+rule "rpiAndGateHIGH"
+    when
+        p : PieGate(inputOne == PieGate.HIGH && inputTwo == PieGate.HIGH)
+        output : GpioPinDigitalOutput()
+    then
+        //set the output of the GPIO pin 01 to high
+        output.high();
+
+end
+rule "rpiAndGateLOW"
+    when
+        p1 : PieGate(inputOne == PieGate.LOW || inputTwo == PieGate.LOW)
+        output : GpioPinDigitalOutput()
+    then
+        //set the output of the GPIO pin 01 to low
+        output.low();
+end
